@@ -1,11 +1,13 @@
-﻿namespace trybank;
+﻿using System.ComponentModel;
+
+namespace trybank;
 
 public class Trybank
 {
     public bool Logged;
     public int loggedUser;
 
-    //0 -> Número da cont
+    //0 -> Número da conta
     //1 -> Agência
     //2 -> Senha
     //3 -> Saldo
@@ -23,7 +25,20 @@ public class Trybank
     // 1. Construa a funcionalidade de cadastrar novas contas
     public void RegisterAccount(int number, int agency, int pass)
     {
-        throw new NotImplementedException();
+        for (int i = 0; i < registeredAccounts; i++)
+        {
+            if (Bank[i, 0] == number && Bank[i, 1] == agency)
+            {
+                throw new ArgumentException("A conta já está sendo usada!");
+            }
+        }
+        Bank[registeredAccounts, 0] = number;
+        Bank[registeredAccounts, 1] = agency;
+        Bank[registeredAccounts, 2] = pass;
+        Bank[registeredAccounts, 3] = 0;
+
+        registeredAccounts++;
+
     }
 
     // 2. Construa a funcionalidade de fazer Login
