@@ -74,24 +74,17 @@ public class Trybank
     // 3. Construa a funcionalidade de fazer Logout
     public void Logout()
     {
-        if (!Logged)
-        {
-            throw new AccessViolationException("Usuário não está logado");
-        }
-        else
-        {
-            Logged = false;
-            loggedUser = -99;
-        }
+        IsLogged();
+
+        Logged = false;
+        loggedUser = -99;
+
     }
 
     // 4. Construa a funcionalidade de checar o saldo
     public int CheckBalance()
     {
-        if (!Logged)
-        {
-            throw new AccessViolationException("Usuário não está logado");
-        }
+        IsLogged();
 
         return Bank[loggedUser, 3];
     }
@@ -99,10 +92,7 @@ public class Trybank
     // 5. Construa a funcionalidade de depositar dinheiro
     public void Deposit(int value)
     {
-        if (!Logged)
-        {
-            throw new AccessViolationException("Usuário não está logado");
-        }
+        IsLogged();
 
         Bank[loggedUser, 3] += value;
     }
@@ -110,10 +100,7 @@ public class Trybank
     // 6. Construa a funcionalidade de sacar dinheiro
     public void Withdraw(int value)
     {
-        if (!Logged)
-        {
-            throw new AccessViolationException("Usuário não está logado");
-        }
+        IsLogged();
 
         if (Bank[loggedUser, 3] > value)
         {
@@ -128,10 +115,7 @@ public class Trybank
     // 7. Construa a funcionalidade de transferir dinheiro entre contas
     public void Transfer(int destinationNumber, int destinationAgency, int value)
     {
-        if (!Logged)
-        {
-            throw new AccessViolationException("Usuário não está logado");
-        }
+        IsLogged();
 
 
         if (Bank[loggedUser, 3] > value)
@@ -152,6 +136,14 @@ public class Trybank
             throw new InvalidOperationException("Saldo insuficiente");
         }
 
+    }
+
+    public void IsLogged()
+    {
+        if (!Logged)
+        {
+            throw new AccessViolationException("Usuário não está logado");
+        }
     }
 }
 
